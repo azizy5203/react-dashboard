@@ -4,6 +4,7 @@ import { Button } from "primereact/button";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import AppModal from "../../components/shared/AppModal";
+import UserForm from "./components/UserForm";
 // import { toast } from "react-toastify";
 
 import axios from "axios";
@@ -93,12 +94,7 @@ const About = () => {
           setVisible(false);
         }}
       >
-        <div className="bg-blue-300 p-4">
-          <span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis,
-            animi error. Ullam.
-          </span>
-        </div>
+        <UserForm />
       </AppModal>
     </div>
   );

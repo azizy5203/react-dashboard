@@ -21,7 +21,6 @@ function AppModal({ title, isVisible, onClose, children }) {
       style={{ width: "50vw" }}
       onHide={onClose}
     >
-      <span>Dialog</span>
       {children}
     </Dialog>
   );

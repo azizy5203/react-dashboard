@@ -1,6 +1,8 @@
-import { Formik, Form as FormikForm } from "formik";
-import PropTypes from "prop-types";
 import React from "react";
+import { Formik, Form as FormikForm } from "formik";
+import { Button } from "primereact/button";
+
+import PropTypes from "prop-types";
 import { ProgressSpinner } from "primereact/progressspinner";
 
 Form.propTypes = {
@@ -35,7 +37,13 @@ function Form({
           isSubmitting ? (
             <ProgressSpinner />
           ) : (
-            <FormikForm> {children}</FormikForm>
+            <FormikForm className="rounded-md p-4">
+              <div>{children}</div>
+              <div className="flex gap-4 mt-4">
+                <Button label="Submit" />
+                <Button label="Reset" />
+              </div>
+            </FormikForm>
           )
         }
       </Formik>

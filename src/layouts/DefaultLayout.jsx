@@ -59,13 +59,13 @@ const DefaultLayout = () => {
   // const [isVisible, setVisible] = useState(true);
   return (
     <div className="grid grid-cols-default-layout grid-rows-default-layout h-screen">
-      <div className="border-e border-sky-400 px-4 pt-4 row-span-2">
+      <div className="border-e border-primary px-4 pt-4 row-span-2">
         <span className="block text-xl font-semibold text-sky-500 mb-4">
           Prime Nigga
         </span>
         <PanelMenu model={items} />
       </div>
-      <div className="flex flex-col items-start px-4 border-b-2 border-b-sky-300">
+      <div className="flex flex-col items-start px-4 border-b-2 border-b-sky-600">
         <span className="text-lg">Youssuf Abdulaziz</span>
         <span className="text-xs">nigga admin</span>
       </div>

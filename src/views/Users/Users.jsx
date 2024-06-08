@@ -3,9 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Button } from "primereact/button";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import AppModal from "../../components/shared/AppModal";
 import UserForm from "./components/UserForm";
-// import { toast } from "react-toastify";
 
 import axios from "axios";
 // const notify = () =>
@@ -18,6 +16,13 @@ import axios from "axios";
 const About = () => {
   const [modelList, setModelList] = useState([]);
   const [isVisible, setVisible] = useState(false);
+
+  const model = {
+    name: "dd",
+    username: "dd",
+    email: "dd",
+    phone: "dd",
+  };
 
   const load = async () => {
     try {
@@ -98,7 +103,7 @@ const About = () => {
           setVisible(false);
         }}
       >
-        <UserForm />
+        <UserForm model={model} isEditing={false} />
       </AppModal>
     </div>
   );

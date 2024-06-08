@@ -3,37 +3,83 @@ import { NavLink } from "react-router-dom";
 import { Button } from "primereact/button";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import axios from "@/vendors/axios";
 import UserForm from "./components/UserForm";
+import { toast } from "react-toastify";
 
-import axios from "axios";
-// const notify = () =>
-//   toast("toast", {
-//     draggable: true,
-//     type: "success",
-//     theme: "light",
-//   });
+const showToast = (msg, type = "success") =>
+  toast(msg, {
+    draggable: true,
+    type: type,
+    theme: "light",
+    autoClose: 1300,
+  });
 
 const About = () => {
   const [modelList, setModelList] = useState([]);
   const [isVisible, setVisible] = useState(false);
+  const [isEditing, setEditing] = useState(false);
+  const [editModel, setEditModel] = useState({});
 
-  const model = {
-    name: "dd",
-    username: "dd",
-    email: "dd",
-    phone: "dd",
-  };
-
-  const load = async () => {
+  async function load() {
     try {
-      const { data } = await axios.get(
-        "http://localhost:5555/api/users/GetAll"
-      );
+      const { data } = await axios.get("users/GetAll");
       setModelList(data);
+      console.log("[DONE]");
     } catch (error) {
-      console.error(error);
+      showToast("Request Failed", "error");
     }
-  };
+  }
+
+  async function deleteUser(item) {
+    try {
+      await axios.delete(`/users/delete/${item._id}`);
+      showToast("Deletion Success");
+      await load();
+    } catch (error) {
+      showToast("Deletion Failed", "error");
+    }
+  }
+
+  async function submit(values) {
+    if (isEditing) await updateUser(values);
+    else await addUser(values);
+  }
+
+  async function handleUserEdit(item) {
+    setEditing(true);
+    setVisible(true);
+    setEditModel(item);
+  }
+
+  async function updateUser(values) {
+    try {
+      await axios.put("/users/update", values);
+      showToast("Updated Successfully");
+      setEditing(false);
+      closeModal();
+      await load();
+    } catch (error) {
+      showToast("Updating Failed", "error");
+    }
+  }
+
+  async function addUser(values) {
+    try {
+      await axios.post("/users/Add", values);
+      showToast("Added Successfully");
+      closeModal();
+      await load();
+    } catch (error) {
+      showToast("Creation Failed", "error");
+    }
+  }
+
+  function closeModal() {
+    if (!isVisible) return;
+    setVisible(false);
+  }
+
   useEffect(() => {
     load();
   }, []);
@@ -66,6 +112,7 @@ const About = () => {
         sortOrder={-1}
         removableSort
       >
+        <Column hidden field="_id" />
         <Column align="center" field="username" sortable header="Username" />
         <Column align="center" field="name" sortable header="Name" />
         <Column align="center" field="email" sortable header="Email" />
@@ -73,37 +120,35 @@ const About = () => {
         <Column
           align="center"
           header="Actions"
-          body={
-            <div className="flex gap-3 justify-center">
-              <Button
-                className="text-sky-700"
-                onClick={() => setVisible(true)}
-                outlined
-                icon="pi pi-pencil"
-                rounded
-              />
-              <Button
-                className="text-red-700"
-                onClick={() => setVisible(true)}
-                outlined
-                icon="pi pi-trash"
-                rounded
-              />
-            </div>
-          }
+          body={(rowData) => (
+            <>
+              <div className="flex gap-3 justify-center">
+                <Button
+                  className="text-sky-700"
+                  onClick={() => handleUserEdit(rowData)}
+                  outlined
+                  icon="pi pi-pencil"
+                  rounded
+                />
+                <Button
+                  className="text-red-700"
+                  onClick={() => deleteUser(rowData)}
+                  outlined
+                  icon="pi pi-trash"
+                  rounded
+                />
+              </div>
+            </>
+          )}
         />
-        {/* body={<i className="pi true-icon pi-check-circle"></i>} */}
       </DataTable>
 
       <AppModal
         isVisible={isVisible}
         title="Add User"
-        onClose={() => {
-          if (!isVisible) return;
-          setVisible(false);
-        }}
+        onClose={() => closeModal()}
       >
-        <UserForm model={model} isEditing={false} />
+        <UserForm model={editModel} isEditing={isEditing} onSubmit={submit} />
       </AppModal>
     </div>
   );

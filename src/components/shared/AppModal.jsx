@@ -1,6 +1,6 @@
 import { Dialog } from "primereact/dialog";
 import React from "react";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import PropTypes from "prop-types";
 
 AppModal.propTypes = {
@@ -11,9 +11,7 @@ AppModal.propTypes = {
 };
 
 function AppModal({ title, isVisible, onClose, children }) {
-  useEffect(() => {
-    console.log(children);
-  }, [children]);
+  // useEffect(() => {}, [children]);
   return (
     <Dialog
       header={title}

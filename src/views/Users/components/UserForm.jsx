@@ -5,11 +5,12 @@ import TextField from "@/components/forms/TextField";
 
 UserForm.propTypes = {
   model: PropTypes.object,
+  initialValues: PropTypes.object,
   isEditing: PropTypes.bool,
   onSubmit: PropTypes.func,
 };
 
-function UserForm({ model = {}, isEditing, onSubmit }) {
+function UserForm({ model = {}, initialValues, isEditing, onSubmit }) {
   const schema = yup.object({
     name: yup.string().required().max(18).label("Name"),
     username: yup.string().required().max(10).label("Username"),
@@ -19,7 +20,9 @@ function UserForm({ model = {}, isEditing, onSubmit }) {
 
   return (
     <Form
-      initialValues={{ name: "", username: "", email: "", phone: "" }}
+      initialValues={
+        initialValues || { name: "", username: "", email: "", phone: "" }
+      }
       model={model}
       schema={schema}
       isEditing={isEditing}

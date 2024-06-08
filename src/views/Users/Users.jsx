@@ -76,6 +76,8 @@ const About = () => {
   }
 
   function closeModal() {
+    setEditing(false);
+    setEditModel({});
     if (!isVisible) return;
     setVisible(false);
   }

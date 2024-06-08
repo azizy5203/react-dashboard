@@ -35,7 +35,15 @@ const About = () => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex justify-between">
-        <span className="text-3xl">Users</span>
+        <div className="flex gap-4 items-center">
+          <NavLink to="/" className="w-fit">
+            <Button
+              className="w-7 h-7 rounded-full p-0"
+              icon="pi pi-chevron-left text-[.75rem]"
+            />
+          </NavLink>
+          <span className="text-3xl">Users</span>
+        </div>
         <Button
           label="Add"
           size="small"
@@ -81,10 +89,6 @@ const About = () => {
         />
         {/* body={<i className="pi true-icon pi-check-circle"></i>} */}
       </DataTable>
-
-      <NavLink to="/" className="w-fit">
-        <Button icon="pi pi-chevron-left" rounded />
-      </NavLink>
 
       <AppModal
         isVisible={isVisible}

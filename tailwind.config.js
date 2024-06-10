@@ -7,10 +7,11 @@ export default {
         primary: "#3ac5ff",
       },
       gridTemplateColumns: {
-        "default-layout": "15% auto",
+        "default-layout": "20% auto",
+        "mobile-layout": "auto",
       },
       gridTemplateRows: {
-        "default-layout": "7% auto",
+        "default-layout": "100px auto",
       },
     },
   },

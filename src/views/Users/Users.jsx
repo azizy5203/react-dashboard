@@ -104,46 +104,48 @@ const About = () => {
           onClick={() => setVisible(true)}
         />
       </div>
-      <DataTable
-        value={modelList}
-        size="small"
-        paginator
-        rows={5}
-        rowsPerPageOptions={[5, 10, 25, 50]}
-        sortField="username"
-        sortOrder={-1}
-        removableSort
-      >
-        <Column hidden field="_id" />
-        <Column align="center" field="username" sortable header="Username" />
-        <Column align="center" field="name" sortable header="Name" />
-        <Column align="center" field="email" sortable header="Email" />
-        <Column align="center" field="phone" sortable header="Phone" />
-        <Column
-          align="center"
-          header="Actions"
-          body={(rowData) => (
-            <>
-              <div className="flex gap-3 justify-center">
-                <Button
-                  className="text-sky-700"
-                  onClick={() => handleUserEdit(rowData)}
-                  outlined
-                  icon="pi pi-pencil"
-                  rounded
-                />
-                <Button
-                  className="text-red-700"
-                  onClick={() => deleteUser(rowData)}
-                  outlined
-                  icon="pi pi-trash"
-                  rounded
-                />
-              </div>
-            </>
-          )}
-        />
-      </DataTable>
+      <>
+        <DataTable
+          value={modelList}
+          size="small"
+          paginator
+          rows={5}
+          rowsPerPageOptions={[5, 10, 25, 50]}
+          sortField="username"
+          sortOrder={-1}
+          removableSort
+        >
+          <Column hidden field="_id" />
+          <Column align="center" field="username" sortable header="Username" />
+          <Column align="center" field="name" sortable header="Name" />
+          <Column align="center" field="email" sortable header="Email" />
+          <Column align="center" field="phone" sortable header="Phone" />
+          <Column
+            align="center"
+            header="Actions"
+            body={(rowData) => (
+              <>
+                <div className="flex gap-3 justify-center">
+                  <Button
+                    className="text-sky-700"
+                    onClick={() => handleUserEdit(rowData)}
+                    outlined
+                    icon="pi pi-pencil"
+                    rounded
+                  />
+                  <Button
+                    className="text-red-700"
+                    onClick={() => deleteUser(rowData)}
+                    outlined
+                    icon="pi pi-trash"
+                    rounded
+                  />
+                </div>
+              </>
+            )}
+          />
+        </DataTable>
+      </>
 
       <AppModal
         isVisible={isVisible}

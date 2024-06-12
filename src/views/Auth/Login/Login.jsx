@@ -1,22 +1,41 @@
 import Form from "@/components/forms/Form";
-import { useDispatch } from "react-redux";
-import { loginUser } from "@/store/auth";
+import { useSelector, useDispatch } from "react-redux";
+import { setStoreState } from "@/store/auth";
 import TextField from "@/components/forms/TextField";
 import { Button } from "primereact/button";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import { toast } from "react-toastify";
+import axios from "@/vendors/axios";
+
+const showToast = (msg, type = "success") =>
+  toast(msg, {
+    draggable: true,
+    type: type,
+    theme: "light",
+    autoClose: 1300,
+  });
 
 function Login() {
   // const auth = useSelector((store) => store.user);
   const dispatch = useDispatch();
-
   const schema = yup.object({
     username: yup.string().required().label("username"),
     password: yup.string().required().label("password"),
   });
+  const navigate = useNavigate();
 
   async function userLogin(values) {
-    dispatch(loginUser(values));
+    try {
+      const { data } = await axios.post("/auth/login", values);
+      dispatch(setStoreState(data));
+      navigate("/users");
+      // localStorage.setItem("TOKEN", data.token);
+      console.log("🚀 ~ userLogin ~ data.Data:", data);
+    } catch (error) {
+      console.log("🚀 ~ userLogin ~ error:", error);
+      showToast("Login Failed", "error");
+    }
   }
 
   return (

@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Navigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import axios from "@/vendors/axios";
 
+import { toast } from "react-toastify";
 const showToast = (msg, type = "success") =>
   toast(msg, {
     draggable: true,
@@ -19,23 +18,11 @@ export const authSlice = createSlice({
   reducers: {
     getUser: (state) => state.user,
     getToken: (state) => state.token,
-    setState: (state, { payload }) => {
+    setStoreState: (state, { payload }) => {
       state.user = payload.user;
       state.token = payload.token;
     },
-    loginUser: async (state, { payload }) => {
-      console.log("🚀 ~ loginUser: ~ payload:", payload);
-      try {
-        const { data } = await axios.post("/auth/login", payload);
-        state.user = data.user;
-        state.token = data.token;
-        localStorage.setItem("TOKEN", data.token);
-        Navigate("/users");
-        console.log("🚀 ~ userLogin ~ data.Data:", data);
-      } catch (error) {
-        showToast("Login Failed", "error");
-      }
-    },
+
     logoutUser: () => {
       return {
         user: null,
@@ -45,6 +32,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { getUser, getToken, loginUser, logoutUser } = authSlice.actions;
+export const { getUser, getToken, logoutUser, setStoreState } =
+  authSlice.actions;
 
 export default authSlice.reducer;

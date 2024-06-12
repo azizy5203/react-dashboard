@@ -1,6 +1,6 @@
 // import { Button } from "primereact/button";
 import { BrowserRouter as Router } from "react-router-dom";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import DefaultLayout from "./layouts/DefaultLayout";
 import { ToastContainer } from "react-toastify";
 

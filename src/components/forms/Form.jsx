@@ -6,6 +6,15 @@ import { ProgressSpinner } from "primereact/progressspinner";
 
 Form.propTypes = {
   children: React.ReactNode,
+  // actions: {
+  //   type: React.ReactNode,
+  //   required: false,
+  // },
+  defaultActions: {
+    type: PropTypes.bool,
+    default: true,
+    required: false,
+  },
   model: PropTypes.object,
   initialValues: PropTypes.object,
   schema: PropTypes.object,
@@ -16,6 +25,7 @@ Form.propTypes = {
 
 function Form({
   children,
+  defaultActions = true,
   initialValues = {},
   model = {},
   schema,
@@ -38,10 +48,19 @@ function Form({
         ) : (
           <FormikForm className="rounded-md p-4">
             <div>{children}</div>
-            <div className="flex gap-4 mt-8">
-              <Button type="submit" label="Submit" title="Submit" />
-              <Button type="reset" label="Reset" title="Reset" outlined />
-            </div>
+            {/* {actions || (
+              <div className="flex gap-4 mt-8">
+                <Button type="submit" label="Submit" title="Submit" />
+                <Button type="reset" label="Reset" title="Reset" outlined />
+              </div>
+            )} */}
+
+            {defaultActions && (
+              <div className="flex gap-4 mt-8">
+                <Button type="submit" label="Submit" title="Submit" />
+                <Button type="reset" label="Reset" title="Reset" outlined />
+              </div>
+            )}
           </FormikForm>
         )
       }

@@ -9,6 +9,7 @@ export default {
       gridTemplateColumns: {
         "default-layout": "20% auto",
         "mobile-layout": "auto",
+        "auth-layout": "70% 30%",
       },
       gridTemplateRows: {
         "default-layout": "100px auto",

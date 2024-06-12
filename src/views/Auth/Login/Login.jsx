@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import axios from "@/vendors/axios";
+import { useEffect } from "react";
 
 const showToast = (msg, type = "success") =>
   toast(msg, {
@@ -39,7 +40,7 @@ function Login() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center  h-full">
+    <div className="flex flex-col justify-center items-center h-full">
       <h2 className="text-xl">Login</h2>
       <Form schema={schema} onSubmit={userLogin} defaultActions={false}>
         <TextField name="username" type="text" label="Username" />
@@ -49,6 +50,13 @@ function Login() {
           className="mt-4 w-full rounded-lg"
           type="submit"
           title="Submit"
+        />
+        <Button
+          label="reset"
+          severity="secondary"
+          className="mt-4 w-full rounded-lg"
+          type="reset"
+          title="reset"
         />
       </Form>
     </div>

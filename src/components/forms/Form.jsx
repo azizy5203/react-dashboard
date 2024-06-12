@@ -10,11 +10,7 @@ Form.propTypes = {
   //   type: React.ReactNode,
   //   required: false,
   // },
-  defaultActions: {
-    type: PropTypes.bool,
-    default: true,
-    required: false,
-  },
+  defaultActions: PropTypes.bool,
   model: PropTypes.object,
   initialValues: PropTypes.object,
   schema: PropTypes.object,

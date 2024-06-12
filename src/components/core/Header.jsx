@@ -1,4 +1,8 @@
+import { useSelector } from "react-redux";
+
 function Header() {
+  const user = useSelector((state) => state.auth.user);
+
   return (
     <div className="flex gap-8 items-center ps-4 border-b-2 border-b-sky-600">
       {/* <Button
@@ -8,7 +12,7 @@ function Header() {
     /> */}
 
       <div className="flex flex-col gap-2 items-start">
-        <span className="text-lg">Youssuf Abdulaziz</span>
+        <span className="text-lg">{user?.name}</span>
         <span className="text-xs">nigga admin</span>
       </div>
     </div>

@@ -5,10 +5,14 @@ import "primereact/resources/themes/lara-dark-cyan/theme.css"; // Theme CSS
 import "primereact/resources/primereact.min.css"; // Core CSS
 import "primeicons/primeicons.css"; // Prime Icons
 import "react-toastify/dist/ReactToastify.css";
+import { Provider } from "react-redux";
+import { store } from "@/store/index";
 import App from "./App.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <PrimeReactProvider>
-    <App />
-  </PrimeReactProvider>
+  <Provider store={store}>
+    <PrimeReactProvider>
+      <App />
+    </PrimeReactProvider>
+  </Provider>
 );

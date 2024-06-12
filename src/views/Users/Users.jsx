@@ -17,17 +17,21 @@ const showToast = (msg, type = "success") =>
 
 const About = () => {
   const [modelList, setModelList] = useState([]);
+  const [isLoading, setLoading] = useState([]);
   const [isVisible, setVisible] = useState(false);
   const [isEditing, setEditing] = useState(false);
   const [editModel, setEditModel] = useState({});
 
   async function load() {
     try {
+      setLoading(true);
       const { data } = await axios.get("users/GetAll");
       setModelList(data);
       console.log("[DONE]");
     } catch (error) {
       showToast("Request Failed", "error");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -106,6 +110,7 @@ const About = () => {
       </div>
       <>
         <DataTable
+          loading={isLoading}
           value={modelList}
           size="small"
           paginator

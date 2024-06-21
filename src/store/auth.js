@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Navigate } from "react-router-dom";
+import axios from "@/vendors/axios";
 
 import { toast } from "react-toastify";
 const showToast = (msg, type = "success") =>
@@ -31,6 +31,19 @@ export const authSlice = createSlice({
     },
   },
 });
+
+export const loginRequest = ({ username, password }) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post("/auth/login", { username, password });
+      dispatch(setStoreState(data));
+      showToast("logged in !");
+    } catch (error) {
+      console.error("Store Login Error", error);
+      showToast("Invalid Credentials", "error");
+    }
+  };
+};
 
 export const { getUser, getToken, logoutUser, setStoreState } =
   authSlice.actions;

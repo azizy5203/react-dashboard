@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import routes from "../router/index";
-import AdminRoutes from "./AdminLayout";
-import AuthRoutes from "./AuthLayout";
+import AdminLayout from "./AdminLayout";
+import AuthLayout from "./AuthLayout";
 
 const DefaultLayout = () => {
   const location = useLocation();
@@ -9,14 +9,18 @@ const DefaultLayout = () => {
 
   if (currentRoute) {
     if (currentRoute.meta.layout === "Admin") {
-      return <AdminRoutes />;
+      return <AdminLayout />;
     } else if (currentRoute.meta.layout === "Auth") {
-      return <AuthRoutes />;
+      return <AuthLayout />;
     }
   }
 
   // Default fallback if no route matches
-  return <div>404 - Not Found</div>;
+  return (
+    <div>
+      <h1>404 - Not Found</h1>
+    </div>
+  );
 };
 
 export default DefaultLayout;

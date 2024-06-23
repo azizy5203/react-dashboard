@@ -1,23 +1,22 @@
-import appRoutes from "../router/index";
 import { useNavigate } from "react-router-dom";
 
-import { useRoutes } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 import { PanelMenu } from "primereact/panelmenu";
 import { Sidebar } from "primereact/sidebar";
-import { Button } from "primereact/button";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { logout } from "@/store/auth";
 
 import Header from "@/components/core/Header";
+import { Button } from "primereact/button";
 
 // import { useState } from "react";
 
-function RouterView() {
-  const adminRoutes = appRoutes.filter(
-    (route) => route.meta.layout === "Admin"
-  );
-  return useRoutes(adminRoutes);
-}
+// function RouterView() {
+//   const adminRoutes = routes.filter((route) => route.meta.layout === "Admin");
+//   return useRoutes(adminRoutes);
+// }
 
 const AdminLayout = () => {
   const [visible, setVisible] = useState(false);
@@ -65,6 +64,11 @@ const AdminLayout = () => {
       ],
     },
   ];
+
+  const dispatch = useDispatch();
+  function logoutUser() {
+    dispatch(logout());
+  }
   // const [isVisible, setVisible] = useState(true);
   return (
     <>
@@ -82,6 +86,7 @@ const AdminLayout = () => {
             Prime Nigga
           </span>
           <PanelMenu model={items} />
+          <Button onClick={logoutUser}>logout</Button>
         </div>
         {/* <div className="flex gap-8 items-center ps-4 border-b-2 border-b-sky-600">
           <Button
@@ -97,7 +102,7 @@ const AdminLayout = () => {
         </div> */}
         <Header />
         <div className="p-4">
-          <RouterView />
+          <Outlet />
         </div>
       </div>
     </>

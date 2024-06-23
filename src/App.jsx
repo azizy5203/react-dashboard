@@ -1,16 +1,19 @@
 // import { Button } from "primereact/button";
-import { BrowserRouter as Router } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
-import DefaultLayout from "./layouts/DefaultLayout";
+import { ProgressSpinner } from "primereact/progressspinner";
+import router from "./router";
+
 import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <>
-      <Router>
-        <DefaultLayout />
-      </Router>
+      <RouterProvider
+        fallbackElement={<ProgressSpinner color="#f00" />}
+        router={router}
+      />
       <ToastContainer />
       <SpeedInsights />
       <Analytics />

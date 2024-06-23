@@ -1,44 +1,22 @@
 import Form from "@/components/forms/Form";
-import { useSelector, useDispatch } from "react-redux";
-import { loginRequest } from "@/store/auth";
+import { useDispatch } from "react-redux";
+import { login } from "@/store/auth";
 
 import TextField from "@/components/forms/TextField";
 import { Button } from "primereact/button";
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import * as yup from "yup";
-import { toast } from "react-toastify";
-import axios from "@/vendors/axios";
-// import { useEffect } from "react";
-
-const showToast = (msg, type = "success") =>
-  toast(msg, {
-    draggable: true,
-    type: type,
-    theme: "light",
-    autoClose: 1300,
-  });
 
 function Login() {
-  // const auth = useSelector((store) => store.user);
-  const dispatch = useDispatch();
   const schema = yup.object({
     username: yup.string().required().label("username"),
     password: yup.string().required().label("password"),
   });
-  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   function userLogin(values) {
-    dispatch(loginRequest(values));
-    // try {
-    //   const { data } = await axios.post("/auth/login", values);
-    //   dispatch(setStoreState(data));
-    //   navigate("/users");
-    //   // localStorage.setItem("TOKEN", data.token);
-    //   console.log("🚀 ~ userLogin ~ data.Data:", data);
-    // } catch (error) {
-    //   console.log("🚀 ~ userLogin ~ error:", error);
-    //   showToast("Login Failed", "error");
-    // }
+    dispatch(login(values));
   }
 
   return (
@@ -46,7 +24,7 @@ function Login() {
       <h2 className="text-xl">Login</h2>
       <Form schema={schema} onSubmit={userLogin} defaultActions={false}>
         <TextField name="username" type="text" label="Username" />
-        <TextField name="password" type="text" label="password" />
+        <TextField name="password" type="password" label="password" />
         <Button
           label="login"
           className="mt-4 w-full rounded-lg"
@@ -55,12 +33,21 @@ function Login() {
         />
         <Button
           label="reset"
-          severity="secondary"
-          className="mt-4 w-full rounded-lg"
+          className="block mx-auto mt-4 rounded-lg bg-transparent p-0 border-none text-primary"
           type="reset"
           title="reset"
         />
       </Form>
+
+      <span>
+        Need an account?
+        <NavLink
+          to="/register"
+          className="ms-1 text-primary font-bold underline"
+        >
+          Register
+        </NavLink>
+      </span>
     </div>
   );
 }

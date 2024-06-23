@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { InputText } from "primereact/inputtext";
 import { FloatLabel } from "primereact/floatlabel";
 import { useField } from "formik";
+import { Password } from "primereact/password";
 
 function TextField({ label, ...props }) {
   const [field, meta] = useField(props);
@@ -16,7 +17,10 @@ function TextField({ label, ...props }) {
           onChange={field.onChange}
           onBlur={field.onBlur}
         />
-        <label>{label}</label>
+        <label>
+          <span>{label}</span>
+          {props.required && <span className="text-red-500 ms-1">*</span>}
+        </label>
       </FloatLabel>
       {meta.touched && meta.error && (
         <small className="text-red-400">{meta.error}</small>

@@ -116,8 +116,8 @@ const About = () => {
           paginator
           rows={5}
           rowsPerPageOptions={[5, 10, 25, 50]}
-          sortField="username"
-          sortOrder={-1}
+          // sortField="username"
+          // sortOrder={1}
           removableSort
         >
           <Column hidden field="_id" />

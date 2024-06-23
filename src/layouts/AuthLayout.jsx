@@ -1,11 +1,11 @@
-import { useRoutes } from "react-router-dom";
-import appRoutes from "@/router/index.jsx";
+import { Outlet } from "react-router-dom";
+// import { routes } from "@/router/index.jsx";
 import logo from "@/assets/primefaces-logo.svg";
 
-function RouterView() {
-  const authRoutes = appRoutes.filter((route) => route.meta.layout === "Auth");
-  return useRoutes(authRoutes);
-}
+// function RouterView() {
+//   const authRoutes = routes.filter((route) => route.meta.layout === "Auth");
+//   return useRoutes(authRoutes);
+// }
 
 const AuthRoutes = () => {
   return (
@@ -17,7 +17,7 @@ const AuthRoutes = () => {
         </h1>
       </div>
       <div className="bg-[#2c2b2b]">
-        <RouterView />
+        <Outlet />
       </div>
     </div>
   );

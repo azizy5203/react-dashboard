@@ -9,14 +9,27 @@ function TextField({ label, ...props }) {
   return (
     <div className="flex flex-col gap-2 py-3">
       <FloatLabel>
-        <InputText
-          className="w-full"
-          {...field}
-          {...props}
-          value={field.value || ""}
-          onChange={field.onChange}
-          onBlur={field.onBlur}
-        />
+        {props?.type == "password" ? (
+          <Password
+            className="w-full"
+            {...field}
+            {...props}
+            value={field.value || ""}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            toggleMask
+            feedback={false}
+          />
+        ) : (
+          <InputText
+            className="w-full"
+            {...field}
+            {...props}
+            value={field.value || ""}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+          />
+        )}
         <label>
           <span>{label}</span>
           {props.required && <span className="text-red-500 ms-1">*</span>}

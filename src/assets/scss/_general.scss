@@ -1,0 +1,22 @@
+.p-input-icon {
+  margin-top: -0.8rem;
+}
+
+.p-datatable-tbody tr:hover {
+  cursor: pointer;
+}
+
+.data-pair {
+  display: flex;
+  flex-direction: column;
+  justify-items: start;
+
+  :first-child {
+    color: #40c4ff;
+    font-size: 12px;
+  }
+  :nth-child(2) {
+    color: #ebeaea;
+    font-size: 14px;
+  }
+}

@@ -78,15 +78,28 @@ const AdminLayout = () => {
             Prime Nigga
           </span>
           <PanelMenu model={items} />
+          <Button
+            onClick={logoutUser}
+            className="mt-auto mb-4 self-start flex gap-2 bg-primary"
+            icon="pi pi-sign-out"
+          >
+            logout
+          </Button>
         </Sidebar>
       </div>
       <div className="grid grid-cols-mobile-layout md:grid-cols-default-layout grid-rows-default-layout h-screen">
-        <div className="hidden md:block border-e border-primary px-4 pt-4 row-span-2">
-          <span className="block text-xl font-semibold text-sky-500 mb-4">
+        <div className="hidden md:flex md:flex-col md:gap-4 border-e border-primary px-4 pt-4 row-span-2">
+          <span className="block text-xl font-semibold text-sky-500">
             Prime Nigga
           </span>
           <PanelMenu model={items} />
-          <Button onClick={logoutUser}>logout</Button>
+          <Button
+            onClick={logoutUser}
+            className="mt-auto mb-4 self-start flex gap-2 bg-primary"
+            icon="pi pi-sign-out"
+          >
+            logout
+          </Button>
         </div>
         {/* <div className="flex gap-8 items-center ps-4 border-b-2 border-b-sky-600">
           <Button

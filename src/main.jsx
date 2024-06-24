@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { PrimeReactProvider } from "primereact/api";
 import "./index.css";
+import "./assets/scss/index.scss";
 import "primereact/resources/themes/lara-dark-cyan/theme.css"; // Theme CSS
 import "primereact/resources/primereact.min.css"; // Core CSS
 import "primeicons/primeicons.css"; // Prime Icons

@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 // import { routes } from "@/router/index.jsx";
-import logo from "@/assets/primefaces-logo.svg";
+import logo from "@/assets/img/primefaces-logo.svg";
 
 // function RouterView() {
 //   const authRoutes = routes.filter((route) => route.meta.layout === "Auth");

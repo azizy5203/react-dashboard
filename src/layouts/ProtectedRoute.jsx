@@ -1,27 +1,27 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, matchPath } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import router from "../router/index";
 
 const ProtectedRoute = ({ children }) => {
-  const { user, token } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const location = useLocation();
   const currentRoute = router.routes
     .flatMap((r) => r?.children)
-    .find((route) => route && route.path === location.pathname);
+    .find((route) => matchPath(route.path, location.pathname));
 
   useEffect(() => {
-    if (currentRoute.meta.requiresAuth) {
+    if (currentRoute?.meta?.requiresAuth) {
       if (!token) {
         navigate("/login", { replace: true });
       }
     } else {
       if (token) {
-        navigate("/app", { replace: true });
+        navigate("/", { replace: true });
       }
     }
-  }, [navigate, user, token, currentRoute.meta.requiresAuth]);
+  }, [navigate, token, currentRoute?.meta?.requiresAuth]);
 
   return children;
 };

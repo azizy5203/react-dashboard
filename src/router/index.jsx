@@ -5,6 +5,7 @@ import NotFound from "../views/NotFound";
 import Login from "../views/Auth/Login/Login";
 import Register from "../views/Auth/Register/Register";
 import Users from "../views/Users/Users";
+import UsersEdit from "../views/Users/UsersEdit";
 import AdminLayout from "@/layouts/AdminLayout";
 import AuthLayout from "@/layouts/AuthLayout";
 
@@ -15,7 +16,11 @@ import ProtectedRoute from "@/layouts/ProtectedRoute";
 // Define your routes
 const router = createBrowserRouter([
   {
-    element: <AuthLayout />,
+    element: (
+      <ProtectedRoute>
+        <AuthLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "/login",
@@ -44,6 +49,12 @@ const router = createBrowserRouter([
       {
         path: "/users",
         element: <Users />,
+        meta: { requiresAuth: true, layout: "Admin" },
+      },
+      {
+        path: "/users/:userId",
+
+        element: <UsersEdit />,
         meta: { requiresAuth: true, layout: "Admin" },
       },
     ],

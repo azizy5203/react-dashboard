@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -15,12 +15,14 @@ const showToast = (msg, type = "success") =>
     autoClose: 1300,
   });
 
-const About = () => {
+const Users = () => {
   const [modelList, setModelList] = useState([]);
   const [isLoading, setLoading] = useState([]);
   const [isVisible, setVisible] = useState(false);
   const [isEditing, setEditing] = useState(false);
   const [editModel, setEditModel] = useState({});
+
+  const navigate = useNavigate();
 
   async function load() {
     try {
@@ -86,6 +88,11 @@ const About = () => {
     setVisible(false);
   }
 
+  function viewUserData(rowData) {
+    console.log("🚀 ~ viewUserData ~ rowData:", rowData);
+    navigate(`/users/${rowData.data._id}`);
+  }
+
   useEffect(() => {
     load();
   }, []);
@@ -119,6 +126,7 @@ const About = () => {
           // sortField="username"
           // sortOrder={1}
           removableSort
+          onRowClick={viewUserData}
         >
           <Column hidden field="_id" />
           <Column align="center" field="username" sortable header="Username" />
@@ -163,4 +171,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default Users;

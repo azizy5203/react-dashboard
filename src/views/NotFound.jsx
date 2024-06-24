@@ -1,4 +1,4 @@
-import notFound from "@/assets/404.svg";
+import notFound from "@/assets/img/404.gif";
 function NotFound() {
   return (
     <div className="flex flex-col items-center gap-10 w-1/2 mx-auto pt-16">

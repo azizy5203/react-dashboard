@@ -35,9 +35,14 @@ function UsersEdit() {
       </div>
       <div className="border border-primary p-4 rounded-lg">
         <h3 className="text-2xl">Tasks</h3>
-        {userData?.tasks?.map((task) => (
-          <div key={task?._id}>{task}</div>
-        ))}
+        <ul>
+          {userData?.tasks?.map((task) => (
+            <li key={task._id} className="flex gap-2">
+              <span>{task.name}</span>
+              <span>{task.status}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

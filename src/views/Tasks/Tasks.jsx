@@ -75,10 +75,7 @@ const Tasks = () => {
 
   async function addTask(values) {
     try {
-      await axios.post("/tasks/Add", {
-        ...values,
-        assignee: values.assignee.id,
-      });
+      await axios.post("/tasks/Add", values);
       showToast("Added Successfully");
       closeModal();
       await load();

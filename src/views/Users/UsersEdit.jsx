@@ -15,7 +15,7 @@ function UsersEdit() {
     getUser();
   }, [userId]);
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-6">
       <div className="border border-primary p-4 rounded-lg">
         <h1 className="text-4xl mb-3">{userData?.name}</h1>
         <div className="grid grid-cols-2 w-1/4 gap-y-4">

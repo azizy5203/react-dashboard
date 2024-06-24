@@ -6,6 +6,7 @@ import Login from "../views/Auth/Login/Login";
 import Register from "../views/Auth/Register/Register";
 import Users from "../views/Users/Users";
 import UsersEdit from "../views/Users/UsersEdit";
+import Tasks from "../views/Tasks/Tasks";
 import AdminLayout from "@/layouts/AdminLayout";
 import AuthLayout from "@/layouts/AuthLayout";
 
@@ -53,8 +54,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/users/:userId",
-
         element: <UsersEdit />,
+        meta: { requiresAuth: true, layout: "Admin" },
+      },
+      {
+        path: "/tasks",
+        element: <Tasks />,
         meta: { requiresAuth: true, layout: "Admin" },
       },
     ],

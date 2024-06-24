@@ -4,7 +4,7 @@ import { Button } from "primereact/button";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import axios from "@/vendors/axios";
-import UserForm from "./components/UserForm";
+import TaskForm from "./components/TaskForm";
 import { toast } from "react-toastify";
 
 const showToast = (msg, type = "success") =>
@@ -15,7 +15,7 @@ const showToast = (msg, type = "success") =>
     autoClose: 1300,
   });
 
-const Users = () => {
+const Tasks = () => {
   const [modelList, setModelList] = useState([]);
   const [isLoading, setLoading] = useState([]);
   const [isVisible, setVisible] = useState(false);
@@ -27,7 +27,7 @@ const Users = () => {
   async function load() {
     try {
       setLoading(true);
-      const { data } = await axios.get("users/GetAll");
+      const { data } = await axios.get("tasks/GetAll");
       setModelList(data);
       console.log("[DONE]");
     } catch (error) {
@@ -37,9 +37,9 @@ const Users = () => {
     }
   }
 
-  async function deleteUser(item) {
+  async function deleteTask(item) {
     try {
-      await axios.delete(`/users/delete/${item._id}`);
+      await axios.delete(`/tasks/delete/${item._id}`);
       showToast("Deletion Success");
       await load();
     } catch (error) {
@@ -48,19 +48,22 @@ const Users = () => {
   }
 
   async function submit(values) {
-    if (isEditing) await updateUser(values);
-    else await addUser(values);
+    if (isEditing) await updateTask(values);
+    else await addTask(values);
   }
 
-  async function handleUserEdit(item) {
+  async function handleTaskEdit(item) {
     setEditing(true);
     setVisible(true);
     setEditModel(item);
   }
 
-  async function updateUser(values) {
+  async function updateTask(values) {
     try {
-      await axios.put("/users/update", values);
+      await axios.put("/tasks/update", {
+        ...values,
+        assignee: values.assignee.id,
+      });
       showToast("Updated Successfully");
       setEditing(false);
       closeModal();
@@ -70,9 +73,12 @@ const Users = () => {
     }
   }
 
-  async function addUser(values) {
+  async function addTask(values) {
     try {
-      await axios.post("/users/Add", values);
+      await axios.post("/tasks/Add", {
+        ...values,
+        assignee: values.assignee.id,
+      });
       showToast("Added Successfully");
       closeModal();
       await load();
@@ -81,6 +87,18 @@ const Users = () => {
     }
   }
 
+  function assigneeTemplate(rowData) {
+    return rowData?.assignee ? (
+      <NavLink
+        className="underline text-primary"
+        to={`/users/${rowData?.assignee?._id}`}
+      >
+        {rowData?.assignee?.name}
+      </NavLink>
+    ) : (
+      <span>-</span>
+    );
+  }
   function closeModal() {
     setEditing(false);
     setEditModel({});
@@ -88,10 +106,10 @@ const Users = () => {
     setVisible(false);
   }
 
-  function viewUserData(rowData) {
-    console.log("🚀 ~ viewUserData ~ rowData:", rowData);
-    navigate(`/users/${rowData.data._id}`);
-  }
+  //   function viewTaskData(rowData) {
+  //     console.log("🚀 ~ viewTaskData ~ rowData:", rowData);
+  //     navigate(`/tasks/${rowData.data._id}`);
+  //   }
 
   useEffect(() => {
     load();
@@ -106,7 +124,7 @@ const Users = () => {
               icon="pi pi-chevron-left text-[.75rem]"
             />
           </NavLink>
-          <span className="text-3xl">Users</span>
+          <span className="text-3xl">Tasks</span>
         </div>
         <Button
           label="Add"
@@ -117,23 +135,39 @@ const Users = () => {
       </div>
       <>
         <DataTable
-          tableClassName="row-cursor-pointer"
           loading={isLoading}
           value={modelList}
           size="small"
           paginator
           rows={5}
           rowsPerPageOptions={[5, 10, 25, 50]}
-          // sortField="username"
+          // sortField="taskname"
           // sortOrder={1}
           removableSort
-          onRowClick={viewUserData}
         >
           <Column hidden field="_id" />
-          <Column align="center" field="username" sortable header="Username" />
-          <Column align="center" field="name" sortable header="Name" />
-          <Column align="center" field="email" sortable header="Email" />
-          <Column align="center" field="phone" sortable header="Phone" />
+          <Column align="center" field="name" sortable header="Title" />
+          <Column
+            align="center"
+            field="description"
+            sortable
+            header="Description"
+            body={(rowData) => (
+              <span
+                className="truncate w-56 inline-block"
+                title={rowData.description}
+              >
+                {rowData.description}
+              </span>
+            )}
+          />
+          <Column
+            align="center"
+            body={(rowData) => assigneeTemplate(rowData)}
+            sortable
+            header="Assigned To"
+          />
+          <Column align="center" field="status" sortable header="Status" />
           <Column
             align="center"
             header="Actions"
@@ -142,14 +176,14 @@ const Users = () => {
                 <div className="flex gap-3 justify-center">
                   <Button
                     className="text-sky-700"
-                    onClick={() => handleUserEdit(rowData)}
+                    onClick={() => handleTaskEdit(rowData)}
                     outlined
                     icon="pi pi-pencil"
                     rounded
                   />
                   <Button
                     className="text-red-700"
-                    onClick={() => deleteUser(rowData)}
+                    onClick={() => deleteTask(rowData)}
                     outlined
                     icon="pi pi-trash"
                     rounded
@@ -163,13 +197,13 @@ const Users = () => {
 
       <AppModal
         isVisible={isVisible}
-        title="Add User"
+        title="Add Task"
         onClose={() => closeModal()}
       >
-        <UserForm model={editModel} isEditing={isEditing} onSubmit={submit} />
+        <TaskForm model={editModel} isEditing={isEditing} onSubmit={submit} />
       </AppModal>
     </div>
   );
 };
 
-export default Users;
+export default Tasks;

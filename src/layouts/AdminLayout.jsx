@@ -33,6 +33,11 @@ const AdminLayout = () => {
       command: () => navigate("/users"),
     },
     {
+      label: "Tasks",
+      icon: "pi pi-list",
+      command: () => navigate("/tasks"),
+    },
+    {
       label: "File",
       icon: "pi pi-fw pi-file",
       items: [

@@ -50,10 +50,13 @@ export const login = (values) => {
     }
   };
 };
-export const register = (values) => {
+export const register = (values, isAdmin) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post("/auth/register", values);
+      const { data } = await axios.post("/auth/register", {
+        ...values,
+        IsAdmin: isAdmin,
+      });
       dispatch(setStoreState(data));
       showToast("registration successful!");
       router.navigate("/login");

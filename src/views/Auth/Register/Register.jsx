@@ -20,7 +20,7 @@ function Register() {
   });
 
   function userRegister(values) {
-    dispatch(register(values));
+    dispatch(register(values, 1));
   }
 
   return (

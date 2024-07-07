@@ -11,6 +11,7 @@ import AdminLayout from "@/layouts/AdminLayout";
 import AuthLayout from "@/layouts/AuthLayout";
 
 import ProtectedRoute from "@/layouts/ProtectedRoute";
+import { isLoggedIn } from "@/helpers/auth";
 
 // Create a history object using createBrowserHistory
 
@@ -36,11 +37,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    element: (
-      <ProtectedRoute>
-        <AdminLayout />
-      </ProtectedRoute>
-    ),
+    element: <AdminLayout />,
+    loader: isLoggedIn,
     children: [
       {
         path: "/",

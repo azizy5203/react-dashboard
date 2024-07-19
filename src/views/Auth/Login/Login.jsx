@@ -15,8 +15,8 @@ function Login() {
 
   const dispatch = useDispatch();
 
-  function userLogin(values) {
-    dispatch(login(values));
+  async function userLogin(values) {
+    await dispatch(login(values));
   }
 
   return (

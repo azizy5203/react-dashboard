@@ -89,8 +89,7 @@ const Users = () => {
   }
 
   function viewUserData(rowData) {
-    console.log("🚀 ~ viewUserData ~ rowData:", rowData);
-    navigate(`/users/${rowData.data._id}`);
+    navigate(`/users/${rowData.data.id}`);
   }
 
   useEffect(() => {

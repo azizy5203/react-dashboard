@@ -15,7 +15,7 @@ const showToast = (msg, type = "success") =>
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
-    user: { name: "ss" },
+    user: JSON.parse(localStorage.getItem("USER")),
     token: localStorage.getItem("TOKEN"),
   },
   reducers: {
@@ -29,6 +29,7 @@ export const authSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.token = null;
+      localStorage.removeItem("USER");
       localStorage.removeItem("TOKEN");
       router.navigate("/login");
     },
@@ -42,6 +43,7 @@ export const login = (values) => {
       const { data } = await axios.post("/auth/login", values);
       dispatch(setStoreState(data));
       localStorage.setItem("TOKEN", data.token);
+      localStorage.setItem("USER", JSON.stringify(data.user));
       showToast("logged in !");
       router.navigate("/users");
     } catch (error) {
@@ -50,10 +52,13 @@ export const login = (values) => {
     }
   };
 };
-export const register = (values) => {
+export const register = (values, isAdmin) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post("/auth/register", values);
+      const { data } = await axios.post("/auth/register", {
+        ...values,
+        IsAdmin: isAdmin,
+      });
       dispatch(setStoreState(data));
       showToast("registration successful!");
       router.navigate("/login");

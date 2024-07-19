@@ -9,8 +9,10 @@ import UsersEdit from "../views/Users/UsersEdit";
 import Tasks from "../views/Tasks/Tasks";
 import AdminLayout from "@/layouts/AdminLayout";
 import AuthLayout from "@/layouts/AuthLayout";
+import NewSideBar from "@/views/NewSideBar/NewSideBar";
 
 import ProtectedRoute from "@/layouts/ProtectedRoute";
+import { isLoggedIn } from "@/helpers/auth";
 
 // Create a history object using createBrowserHistory
 
@@ -36,11 +38,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    element: (
-      <ProtectedRoute>
-        <AdminLayout />
-      </ProtectedRoute>
-    ),
+    element: <AdminLayout />,
+    loader: isLoggedIn,
     children: [
       {
         path: "/",
@@ -63,6 +62,11 @@ const router = createBrowserRouter([
         meta: { requiresAuth: true, layout: "Admin" },
       },
     ],
+  },
+  {
+    path: "/side-bar",
+    element: <NewSideBar />,
+    meta: {},
   },
   {
     path: "/*",

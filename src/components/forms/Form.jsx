@@ -44,13 +44,6 @@ function Form({
         ) : (
           <FormikForm className="rounded-md p-4">
             <div>{children}</div>
-            {/* {actions || (
-              <div className="flex gap-4 mt-8">
-                <Button type="submit" label="Submit" title="Submit" />
-                <Button type="reset" label="Reset" title="Reset" outlined />
-              </div>
-            )} */}
-
             {defaultActions && (
               <div className="flex gap-4 mt-8">
                 <Button type="submit" label="Submit" title="Submit" />
